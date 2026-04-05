@@ -1,10 +1,6 @@
 /**
- * Collects per-trial data and exports as CSV.
- *
- * Each row captures everything needed for the R analysis:
- *   participant_id, condition_order, block, condition, trial,
- *   is_practice, target_x, target_y, click_x, click_y,
- *   radial_error, is_hit, reaction_time_ms, timestamp
+ * Collects per-trial data, exports as CSV, and optionally
+ * auto-saves to a Google Sheet via Apps Script endpoint.
  */
 class Logger {
   constructor() {
@@ -73,5 +69,27 @@ class Logger {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  /**
+   * POST all rows to the Google Sheets endpoint.
+   * Returns { ok: true } on success, { ok: false, msg } on failure.
+   * Silently skips if SHEET_ENDPOINT is not configured.
+   */
+  async submit() {
+    if (!CONFIG.SHEET_ENDPOINT) {
+      return { ok: false, msg: 'No endpoint configured' };
+    }
+    try {
+      await fetch(CONFIG.SHEET_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },  // avoids CORS preflight
+        body: JSON.stringify(this.rows),
+        redirect: 'follow',
+      });
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, msg: err.message };
+    }
   }
 }

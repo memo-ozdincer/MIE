@@ -246,5 +246,10 @@ body {
   margin-top: 0.2rem;
 }
 
+/* ── Submit status ────────────────────────────────────────────── */
+.status-pending { color: var(--muted); font-style: italic; }
+.status-ok      { color: var(--hit-slow); font-weight: 500; }
+.status-err     { color: var(--muted); }
+
 /* ── Utility ──────────────────────────────────────────────────── */
 .hidden { display: none !important; }

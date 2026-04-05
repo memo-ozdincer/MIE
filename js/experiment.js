@@ -185,10 +185,23 @@ class Experiment {
         <div class="stat"><span class="stat-val">${acc}%</span><span class="stat-lbl">Accuracy</span></div>
         <div class="stat"><span class="stat-val">${this._bestStreak}</span><span class="stat-lbl">Best Streak</span></div>
       </div>
-      <p>Thank you for participating! <strong>${this.logger.count}</strong> trials logged.</p>
+      <p id="submit-status" class="status-pending">Saving data&hellip;</p>
       <button class="btn" id="dl-btn">Download CSV</button>
     `);
+
     document.getElementById('dl-btn').addEventListener('click', () => this.logger.download());
+
+    // Auto-submit to Google Sheets
+    this.logger.submit().then(result => {
+      const el = document.getElementById('submit-status');
+      if (result.ok) {
+        el.textContent = 'Data saved! Thank you for participating.';
+        el.className = 'status-ok';
+      } else {
+        el.textContent = 'Please download your CSV using the button below.';
+        el.className = 'status-err';
+      }
+    });
   }
 
   // ═══════════════════════════════════════════════════════════════
