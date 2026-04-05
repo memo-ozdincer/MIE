@@ -16,7 +16,7 @@ const CONFIG = Object.freeze({
   // ── Game mode ─────────────────────────────────────────────────
   // true  = spatial memory (target appears, disappears, recall from memory)
   // false = standard (click the visible target)
-  MEMORY_MODE: true,
+  MEMORY_MODE: false,
 
   // ── Memory-mode timing (ms) ───────────────────────────────────
   TARGET_DISPLAY_MS: 1000,     // how long the target is shown
