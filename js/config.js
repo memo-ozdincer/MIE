@@ -59,7 +59,7 @@ const CONFIG = Object.freeze({
   // ── Data endpoint ──────────────────────────────────────────────
   // Paste your Google Apps Script web-app URL here after deploying.
   // Leave empty to skip auto-save (participants download CSV instead).
-  SHEET_ENDPOINT: '',
+  SHEET_ENDPOINT: 'https://script.google.com/macros/s/AKfycbwlNDWEvBkSbeiTfRwD28VURvTCuyyRVeX4Uymz8AHtnBygxXFAiAZowOe-W0UyyBsU/exec',
 
   // ── Effects ───────────────────────────────────────────────────
   PARTICLE_COUNT: 14,
